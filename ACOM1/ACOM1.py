@@ -1,4 +1,7 @@
 import cv2
+import numpy
+import numpy as np
+
 #
 # img1 = cv2.imread(r'629343.png')
 # img2 = cv2.imread(r'629343.png', cv2.IMREAD_GRAYSCALE)
@@ -99,34 +102,38 @@ import cv2
 # cv2.destroyAllWindows()
 # #
 #Задание 6
-cap = cv2.VideoCapture(0)
+web_cap = cv2.VideoCapture(0)
 
-def draw_red_cross(frame):
-    h, w, _ = frame.shape
-    center_x = w // 2
-    center_y = h // 2
-    # Размеры креста
-    cross_size = 100
-    cross_thickness = 2
-    # Рисование креста
-    cv2.rectangle(frame, (center_x - cross_size // 2, center_y - cross_size // 8),
-                  (center_x + cross_size // 2, center_y + cross_size // 8),
-                  (0, 0, 255), cross_thickness)
-    cv2.rectangle(frame, (center_x - cross_size // 8, center_y - cross_size // 2),
-                  (center_x + cross_size // 8, center_y + cross_size // 2),
-                  (0, 0, 255), cross_thickness)
-    return frame
 
-while True:
-    ret, frame = cap.read()
-    if ret:
-        frame = draw_red_cross(frame)
-        cv2.imshow('Red Cross', frame)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+ret, frame = web_cap.read()
+if not ret:
+    print("Не удалось получить кадр")
+height, width, _ = frame.shape
 
-cap.release()
+center_x, center_y = width // 2, height // 2
+
+points = np.array([
+    [[center_x +100, center_y], [center_x -100, center_y]],
+    [[center_x +100, center_y+30], [center_x -100, center_y+30]],
+    [[center_x -15, center_y], [center_x -15, center_y-100]],
+    [[center_x +15, center_y], [center_x +15, center_y-100]],
+    [[center_x - 15, center_y+30], [center_x - 15, center_y + 130]],
+    [[center_x + 15, center_y + 30], [center_x + 15, center_y + 130]],
+    [[center_x +100, center_y], [center_x +100, center_y + 30]],
+    [[center_x -100, center_y], [center_x -100, center_y + 30]],
+    [[center_x -15, center_y-100], [center_x +15, center_y-100]],
+    [[center_x - 15, center_y + 130], [center_x + 15, center_y + 130]],
+
+], dtype=np.int32)
+
+for line in points:
+    cv2.polylines(frame, [line], isClosed=True, color=(0, 0, 255), thickness=2)
+
+cv2.imshow('Cross', frame)
+
+cv2.waitKey(0)
 cv2.destroyAllWindows()
+
 
 # Задание 7
 # import cv2
