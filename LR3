@@ -83,7 +83,7 @@ import numpy as np
 #     print("Матрица свертки:")
 #     print(kernel)
 #
-#     image = cv2.imread('D:/draw/boom.png', cv2.THRESH_BINARY)
+#     image = cv2.imread(r'C:/Users/hexvgon/PycharmProjects/ACOM3/aragorn.jpg', cv2.THRESH_BINARY)
 #     image = cv2.filter2D(image, -1, kernel)
 #
 #     cv2.namedWindow('Normal', cv2.WINDOW_NORMAL)
@@ -122,7 +122,7 @@ def matrSvert():
     sigma2 = 1
     sigma = 2 # отклонение
 
-    image = cv2.imread(r'C:/Users/hexvgon/PycharmProjects/ACOM3/Jacque_Fresco_and_lemon_tree.jpg', cv2.THRESH_BINARY)
+    image = cv2.imread(r'C:/Users/hexvgon/PycharmProjects/ACOM3/aragorn.jpg', cv2.THRESH_BINARY)
     kernel = GAIS(size,sigma)
     kernel2 = GAIS(size2, sigma2)
 
@@ -147,7 +147,7 @@ def matrSvert():
     size = 7
     sigma = 1.0  # отклонение
 
-    image = cv2.imread(r'C:/Users/hexvgon/PycharmProjects/ACOM3/Jacque_Fresco_and_lemon_tree.jpg', cv2.THRESH_BINARY)
+    image = cv2.imread(r'C:/Users/hexvgon/PycharmProjects/ACOM3/aragorn.jpg', cv2.THRESH_BINARY)
 
     image = cv2.GaussianBlur(image, (7,7), sigma)
     cv2.namedWindow('Gausse', cv2.WINDOW_NORMAL)
